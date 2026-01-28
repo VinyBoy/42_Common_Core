@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Delete a file</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			margin: 50px;
+			background-color: #f4f4f4;
+		}
+
+		h1 {
+			color: #333;
+		}
+
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 10px;
+			max-width: 500px;
+			margin: 0 auto;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		input[type="text"] {
+			width: 80%;
+			padding: 10px;
+			border: 2px solid #ddd;
+			border-radius: 5px;
+			margin-bottom: 15px;
+		}
+
+		button {
+			padding: 12px 30px;
+			background: #f44336;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			margin: 10px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background: #da190b;
+		}
+
+		.back-btn {
+			background: #2196F3;
+		}
+
+		.back-btn:hover {
+			background: #0b7dda;
+		}
+
+		#result {
+			margin-top: 20px;
+			padding: 15px;
+			border-radius: 5px;
+			display: none;
+		}
+
+		.success {
+			background: #d4edda;
+			color: #155724;
+			border: 1px solid #c3e6cb;
+		}
+
+		.error {
+			background: #f8d7da;
+			color: #721c24;
+			border: 1px solid #f5c6cb;
+		}
+
+		p {
+			color: #666;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Delete a file</h1>
+
+	<div class="container">
+		<form id="deleteForm">
+			<input type="text" id="filename" name="filename" placeholder="File to delete" required />
+			<br>
+			<button type="submit">Delete</button>
+		</form>
+
+		<div id="result"></div>
+
+		<p>⚠️ This action is irreversible</p>
+		<p>💡 Example: upload/test.txt</p>
+	</div>
+
+	<button class="back-btn" onclick="window.location.href='/'">Back</button>
+
+	<script src="js/delete.js"></script>
+</body>
+
+</html>
