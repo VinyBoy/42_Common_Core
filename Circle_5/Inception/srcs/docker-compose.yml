@@ -1,0 +1,191 @@
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+    secrets:
+      - db_root_password
+      - db_password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception
+    restart: unless-stopped
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build:
+      context: ./requirements/wordpress
+    env_file:
+      - .env
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      WP_TITLE: ${WP_TITLE}
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+      WP_USER: ${WP_USER}
+      WP_USER_EMAIL: ${WP_USER_EMAIL}
+      WP_REDIS_HOST: redis
+      WP_REDIS_PORT: 6379
+    secrets:
+      - db_password
+      - wp_admin_password
+      - wp_user_password
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: ./requirements/nginx
+    env_file:
+      - .env
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html:ro
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    restart: unless-stopped
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    build:
+      context: ./requirements/bonus/adminer
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  redis:
+    container_name: redis
+    image: redis
+    build:
+      context: ./requirements/bonus/redis
+    networks:
+      - inception
+    restart: unless-stopped
+
+  static:
+    container_name: static
+    image: static
+    build:
+      context: ./requirements/bonus/static
+    ports:
+      - "8081:80"
+    networks:
+      - inception
+    restart: unless-stopped
+  
+  ftp:
+    container_name: ftp
+    image: ftp
+    build:
+      context: ./requirements/bonus/ftp
+    env_file:
+      - .env
+    environment:
+      FTP_USER: ${FTP_USER}
+      FTP_ROOT: ${FTP_ROOT}
+      PASV_ADDRESS: ${PASV_ADDRESS}
+      PASV_MIN_PORT: ${PASV_MIN_PORT}
+      PASV_MAX_PORT: ${PASV_MAX_PORT}
+    secrets:
+      - ftp_password
+    volumes:
+      - ftp_data:/home/${FTP_USER}/ftp
+    ports:
+      - "2121:2121"
+      - "21100-21110:21100-21110"
+    networks:
+      - inception
+    restart: unless-stopped
+
+  nextjs:
+    container_name: nextjs
+    image: nextjs
+    build:
+      context: ./requirements/bonus/nextjs
+    env_file:
+      - .env
+    environment:
+      #ULR publique utile pour auth plus tard
+      NEXT_PUBLIC_BASE_URL: https://app.${DOMAIN_NAME}
+      #Connexion Prisma
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+    secrets:
+      - db_password
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+    restart: unless-stopped 
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
+
+secrets:
+  db_root_password:
+    file: /home/vnieto-j/Inception/secrets/db_root_password.txt
+  db_password:
+    file: /home/vnieto-j/Inception/secrets/db_password.txt
+  wp_admin_password:
+    file: /home/vnieto-j/Inception/secrets/wp_admin_password.txt
+  wp_user_password:
+    file: /home/vnieto-j/Inception/secrets/wp_user_password.txt
+  ftp_password:
+    file: /home/vnieto-j/Inception/secrets/ftp_password.txt
+
+volumes:
+  mariadb_data:
+    name: mariadb_data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/mariadb
+
+  wordpress_data:
+    name: wordpress_data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/wordpress
+
+  ftp_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/${LOGIN}/data/ftp 

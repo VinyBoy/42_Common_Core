@@ -14,7 +14,9 @@
 
 ```
 🎯 Progression : Circle 5 (terminé) → Circle 6 (en cours)
-💻 Projets réalisés : 20+
+💻 Projets réalisés : 21+
+🏆 Outstanding projects : 3
+⭐ Meilleure note : Inception (125/100)
 🔧 Langages maîtrisés : C, C++, Shell
 ⚙️ Compétences : Bas niveau, Systèmes, Algorithmie, Graphisme, Réseau
 ```
@@ -76,8 +78,9 @@
 |--------|-------------|------------------------|
 | **[CPP Modules 05-09](Circle_5/)** | Concepts avancés C++ | Exceptions, templates, STL, casting, design patterns |
 | **[Webserv](Circle_5/webserv)** | Serveur HTTP from scratch | Sockets, I/O multiplexing, protocole HTTP, CGI |
+| **[Inception](../Inception)** | Infrastructure Docker multi-services | Docker, Docker Compose, administration système, sécurité, DevOps |
 
-**Skills acquises** : C++ avancé, programmation réseau, architecture serveur, protocoles web
+**Skills acquises** : C++ avancé, programmation réseau, architecture serveur, protocoles web, containerisation
 
 ---
 
@@ -87,6 +90,7 @@
 - **C** : Maîtrise approfondie (pointeurs, allocation dynamique, structures)
 - **C++** : POO, STL, templates, exceptions, héritage multiple
 - **Shell** : Scripts bash, administration système
+- **Docker** : Conteneurisation, orchestration de services avec Docker Compose
 - **Makefile** : Automatisation de compilation
 - **Git** : Versioning et collaboration
 
@@ -97,6 +101,7 @@
 🔀 Algorithmes & Structures ████████████████████ Expert
 🧵 Multithreading          ███████████████░░░░░ Avancé
 🌐 Programmation réseau    ███████████████░░░░░ Avancé
+🐳 Docker & Conteneurisation ███████████████░░░░░ Avancé
 🎨 Graphisme 2D/3D         ██████████████░░░░░░ Intermédiaire
 🖥️  Systèmes Unix          ████████████████████ Expert
 📐 Mathématiques           ███████████████░░░░░ Avancé
@@ -148,6 +153,13 @@ Moteur de rendu 3D utilisant le raycasting, inspiré de Wolfenstein 3D, avec par
 
 ### 🌐 [Webserv](Circle_5/webserv)
 Serveur HTTP non-bloquant en C++ avec multiplexing I/O, support CGI, et gestion complète du protocole HTTP/1.1.
+
+### 🐳 [Inception](../Inception)
+Mise en place d'une infrastructure complète avec Docker et Docker Compose (Nginx, WordPress, MariaDB et services associés), avec une attention particulière à la sécurité et à l'isolation des services.
+
+**Résultat** : ✅ **125/100**
+- ⭐ **3 Outstanding Projects**
+
 
 ### 🍝 [Philosophers](Circle_3/Philosophers/philo)
 Implémentation du problème classique des philosophes dineurs avec threads et mutex pour comprendre la synchronisation.

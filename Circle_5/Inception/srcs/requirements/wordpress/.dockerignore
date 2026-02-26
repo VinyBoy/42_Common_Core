@@ -1,0 +1,13 @@
+.git
+.gitignore
+*.md
+.vscode/
+.idea/
+*.swp
+*.log
+.DS_Store
+Thumbs.db
+
+wp-config-sample.php
+license.txt
+readme.html
