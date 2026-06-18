@@ -18,7 +18,7 @@
 🏆 Outstanding projects : 4
 ⭐ Meilleure note : Inception (125/100) / B2b (125/100)
 🔧 Langages maîtrisés : C, C++, Shell, Git, TypeScripe, NextJs / React
-⚙️ Compétences : Bas niveau, Systèmes, Algorithmie, Graphisme, Réseau
+⚙️ Compétences : Bas niveau, Systèmes, Algorithmie, Graphisme, Réseau, Devops/Devsecops, Infra
 ```
 
 ---
