@@ -1,0 +1,22 @@
+Arthub : https://app.localhost:8443/
+
+Traefik : http://app.localhost:8080/dashboard/
+
+Application Next.js
+[http://app.localhost:8081](http://app.localhost:8081/)[https://app.localhost:8443](https://app.localhost:8443/)
+Healthcheck et status page
+http://app.localhost:8081/api/healthzhttps://app.localhost:8443/api/healthzhttp://app.localhost:8081/api/statushttps://app.localhost:8443/api/statushttp://app.localhost:8081/statushttps://app.localhost:8443/status
+Traefik
+Dashboard UI: http://localhost:8080/dashboard/
+API routers: http://localhost:8080/api/http/routers
+Metrics Traefik (exposees sur le host): http://localhost:9091/metrics
+Prometheus
+UI: [http://localhost:9090](http://localhost:9090/)
+Ready endpoint: http://localhost:9090/-/ready
+Healthy endpoint: http://localhost:9090/-/healthy
+Targets UI: http://localhost:9090/targets
+Alerts UI: http://localhost:9090/alerts
+API targets: http://localhost:9090/api/v1/targets
+API alerts: http://localhost:9090/api/v1/alerts
+Grafana (via Traefik securise)
+[https://grafana.localhost:8443](https://grafana.localhost:8443/)https://grafana.localhost:8443/login

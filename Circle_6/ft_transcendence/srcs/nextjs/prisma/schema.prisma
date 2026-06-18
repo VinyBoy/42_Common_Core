@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  welcome       Boolean   @default(false)
+  name          String?
+  firstName     String?
+  lastName      String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  bio           String?
+  birthdate     DateTime?
+  job           String?
+  username      String?   @unique
+  password      String?
+  emailVerificationCode String?
+  emailVerificationCodeExpires DateTime?
+  twoFactorEnabled      Boolean   @default(false)
+  twoFactorSecret       String?
+  pendingEmail          String?
+  deletedAt             DateTime?
+  recoveryToken         String?
+  
+  fileId String?   @unique
+  file     File?     @relation("UserFile", fields: [fileId], references: [id])
+
+  accounts      Account[]
+  sessions      Session[]
+
+  sentMessages      Message[] @relation("SentMessages")
+  receivedMessages  Message[] @relation("ReceivedMessages")
+
+  blocking          Block[] @relation("Blocking")
+  blockedBy         Block[] @relation("BlockedBy")
+
+  friendRequestsSent     Friendship[] @relation("FriendRequestsSent")
+  friendRequestsReceived Friendship[] @relation("FriendRequestsReceived")
+
+  lastSeen  DateTime?
+
+  portfolioItems    PortfolioItem[]
+  projects          Project[]
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  content     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isRead      Boolean  @default(false)
+
+  fileId      String?  @unique
+  file        File?    @relation("MessageFile", fields: [fileId], references: [id])
+
+  senderId    String
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  
+  receiverId  String
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([senderId, receiverId])
+}
+
+model File {
+  id        String   @id @default(cuid())
+  name      String?
+  mime      String?
+  size      Int?
+  blob      Bytes
+  createdAt DateTime @default(now())
+
+  userFile      User?          @relation("UserFile")
+  message       Message?       @relation("MessageFile")
+  portfolioItem PortfolioItem?
+  projectFile   ProjectFile?
+}
+
+model PortfolioItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileId    String   @unique
+  file      File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  description String?
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  files       ProjectFile[]
+}
+
+model ProjectFile {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  fileId    String   @unique
+  file      File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  order     Int      @default(0)
+}
+
+model Block {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+
+  blockerId   String
+  blocker     User     @relation("Blocking", fields: [blockerId], references: [id], onDelete: Cascade)
+  
+  blockedId   String
+  blocked     User     @relation("BlockedBy", fields: [blockedId], references: [id], onDelete: Cascade)
+
+  @@unique([blockerId, blockedId])
+}
+
+model Friendship {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  status    String   @default("pending")
+
+  senderId    String
+  sender      User @relation("FriendRequestsSent", fields: [senderId], references: [id], onDelete: Cascade)
+
+  receiverId  String
+  receiver    User @relation("FriendRequestsReceived", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  created_at         Int?
+  secret_valid_until Int?
+  providerUsername   String?
+  isPublic           Boolean @default(false)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

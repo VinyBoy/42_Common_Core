@@ -1,0 +1,47 @@
+groups:
+  - name: infrastructure-alerts
+    rules:
+      - alert: PrometheusTargetDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Target down"
+          description: "{{ $labels.job }} on {{ $labels.instance }} is unreachable for more than 2 minutes."
+
+      - alert: TraefikHigh5xxRate
+        expr: (sum(rate(traefik_entrypoint_requests_total{code=~"5.."}[5m])) / clamp_min(sum(rate(traefik_entrypoint_requests_total[5m])), 0.001)) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Traefik 5xx rate is high"
+          description: "More than 5% of requests are returning 5xx over the last 5 minutes."
+
+      - alert: TraefikHighP95Latency
+        expr: histogram_quantile(0.95, sum by (le) (rate(traefik_entrypoint_request_duration_seconds_bucket[5m]))) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Traefik latency p95 is high"
+          description: "The p95 latency is above 1 second for at least 5 minutes."
+
+      - alert: HostHighCpuUsage
+        expr: (100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host CPU usage is high"
+          description: "CPU usage is above 85% for at least 10 minutes on {{ $labels.instance }}."
+
+      - alert: HostHighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host memory usage is high"
+          description: "Memory usage is above 90% for at least 10 minutes on {{ $labels.instance }}."
