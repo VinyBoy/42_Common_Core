@@ -13,10 +13,10 @@
 ## 📊 Vue d'ensemble
 
 ```
-🎯 Progression : Circle 5 (terminé) → Circle 6 (en cours)
-💻 Projets réalisés : 21+
-🏆 Outstanding projects : 3
-⭐ Meilleure note : Inception (125/100)
+🎯 Progression : Common_Core End ✅
+💻 Projets réalisés : 2@+
+🏆 Outstanding projects : 4
+⭐ Meilleure note : Inception (125/100) / B2b (125/100)
 🔧 Langages maîtrisés : C, C++, Shell
 ⚙️ Compétences : Bas niveau, Systèmes, Algorithmie, Graphisme, Réseau
 ```
@@ -84,6 +84,14 @@
 
 ---
 
+### 🏁 Circle 6 - Projet final & Web Full-Stack
+
+| Projet | Description | Compétences développées |
+|--------|-------------|------------------------|
+| **[ft_transcendence - Art-Hub](Circle_6/ft_transcendance)** | Application web full-stack dédiée à la mise en relation entre artistes et public | Next.js, TypeScript, PostgreSQL, Prisma, Traefik, Docker, monitoring, architecture système |
+
+**Skills acquises** : Développement web full-stack, architecture applicative, gestion de projet en équipe, base de données relationnelle, authentification, monitoring, reverse proxy, conteneurisation
+
 ## 💡 Compétences Techniques
 
 ### 🔧 Langages & Technologies
@@ -93,6 +101,12 @@
 - **Docker** : Conteneurisation, orchestration de services avec Docker Compose
 - **Makefile** : Automatisation de compilation
 - **Git** : Versioning et collaboration
+- **TypeScript** : Typage statique, développement web moderne, composants et API routes
+- **Next.js / React** : Application full-stack, frontend, backend, routing, composants
+- **PostgreSQL** : Modélisation relationnelle, persistance des données
+- **Prisma** : ORM type-safe, gestion du schéma et migrations
+- **Traefik** : Reverse proxy, routage dynamique, intégration Docker
+- **Prometheus / Grafana** : Monitoring, métriques, observabilité
 
 ### 🎯 Domaines de compétence
 
@@ -138,12 +152,46 @@ Common_Core_Github/
 ├── Circle_3/          # Systèmes avancés
 ├── Circle_4/          # C++ & 3D
 ├── Circle_5/          # C++ avancé & Réseau
-└── Circle_6/          # Projets finaux (en cours)
+└── Circle_6/          # Projet final web full-stack
 ```
 
 ---
 
 ## 🎯 Projets Phares
+
+### 🎨 [ft_transcendence - Art-Hub](Circle_6/ft_transcendance) ✅ **125/100**
+Application web full-stack développée en équipe dans le cadre du projet final du Common Core 42.
+**Art-Hub** est une plateforme dédiée aux artistes, pensée pour leur permettre de gagner en visibilité en centralisant leurs créations, leurs portfolios et leurs interactions avec le public.
+
+L’objectif du projet est de faciliter la découverte d’artistes, les échanges, les collaborations et les opportunités professionnelles.
+
+**Stack technique** :   - **Next.js / React / TypeScript** : application web full-stack
+                        - **PostgreSQL** : base de données relationnelle
+                        - **Prisma** : ORM type-safe pour la gestion des données
+                        - **Docker** : conteneurisation de l’environnement 
+                        - **Traefik** : reverse proxy et routage dynamique 
+                        - **Prometheus / Grafana** : monitoring et visualisation des métriques 
+
+**Fonctionnalités principales** : 
+
+- Authentification utilisateur - Profils personnalisables - Posts et portfolios d’artistes - Système de notifications - Recherche avancée avec filtres, tri et pagination - Upload et gestion de fichiers - Communication temps réel entre utilisateurs - Monitoring et health checks des services 
+
+**Contribution personnelle** : 
+
+- Mise en place du monitoring 
+- Participation à l’architecture système 
+- Configuration de Traefik 
+- Travail sur la conception de la base de données 
+- Gestion des besoins produit, backlog et priorisation des fonctionnalités 
+
+**Compétences renforcées** : 
+
+- Développement web full-stack 
+- Travail en équipe sur un projet long 
+- Gestion produit et organisation de backlog 
+- Architecture Docker multi-services 
+- Reverse proxy et routage applicatif 
+- Observabilité, monitoring et health checks
 
 ### 🐚 [Minishell](Circle_3/github)
 Un interpréteur de commandes qui reproduit bash avec gestion des pipes, redirections, variables d'environnement et signaux.
@@ -158,7 +206,7 @@ Serveur HTTP non-bloquant en C++ avec multiplexing I/O, support CGI, et gestion 
 Mise en place d'une infrastructure complète avec Docker et Docker Compose (Nginx, WordPress, MariaDB et services associés), avec une attention particulière à la sécurité et à l'isolation des services.
 
 **Résultat** : ✅ **125/100**
-- ⭐ **3 Outstanding Projects**
+- ⭐ **4 Outstanding Projects**
 
 
 ### 🍝 [Philosophers](Circle_3/Philosophers/philo)
